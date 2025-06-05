@@ -7,7 +7,7 @@ terraform {
   }
 
   backend "azurerm" {      
-    #use_oidc             = true                                   
+    use_msi              = true                               
     use_azuread_auth     = true                                   
     tenant_id            = "9011785c-300d-4d38-8cb2-c9fcfa21f771" 
     client_id            = "b5d2582d-5f06-48e5-a278-d4f28e742651" 
