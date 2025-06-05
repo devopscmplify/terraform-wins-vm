@@ -1,4 +1,4 @@
-variable "name" {
+variable "vm_name" {
   description = "The name of the resource"
   type        = string
   default     = "DC"

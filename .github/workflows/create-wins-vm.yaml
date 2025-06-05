@@ -7,6 +7,9 @@ on:
         required: true
         default: 'my-windows-vm'
 
+permissions:
+  id-token: write
+  contents: read
 jobs:
   create-vm:
     runs-on: ubuntu-latest
@@ -30,5 +33,7 @@ jobs:
       - name: Initialize Terraform
         run: terraform init
 
+      - name: terraform plan
+        run: terraform plan -var "vm_name=${{ github.event.inputs.vm_name }}"
       - name: Apply Terraform
-        run: terraform apply -auto-approve
+        run: terraform apply -var "vm_name=${{ github.event.inputs.vm_name }}" -auto-approve
