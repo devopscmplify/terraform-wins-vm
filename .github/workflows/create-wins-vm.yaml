@@ -7,6 +7,11 @@ on:
         required: true
         default: 'my-windows-vm'
 
+env:
+  ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+  ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 permissions:
   id-token: write
   contents: read
@@ -15,11 +20,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev
 
-    env:
-      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
     steps:
       - name: Checkout repository
@@ -46,10 +46,10 @@ jobs:
 
 
         env:
-          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_CLIENT_ID: ${{ secrets.env.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.env.AZURE_CLIENT_SECRET }}
+          ARM_TENANT_ID: ${{ secrets.env.AZURE_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.env.AZURE_SUBSCRIPTION_ID }}
 
       - name: terraform plan
         run: terraform plan -var "vm_name=${{ github.event.inputs.vm_name }}"
