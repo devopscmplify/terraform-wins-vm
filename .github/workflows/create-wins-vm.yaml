@@ -41,8 +41,8 @@ jobs:
           # creds: ${{ secrets.AZURE_CREDENTIALS }}
 
 
-      - name: Initialize Terraform
-        run: terraform init
+      # - name: Initialize Terraform
+        # run: terraform init
 
       - name: Terraform init azurerm backend
         uses: ahmedig/terraform-azurerm-backend@v4
