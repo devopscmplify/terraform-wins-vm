@@ -25,8 +25,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v1
 
       - name: Azure login
         uses: azure/login@v2
@@ -40,19 +38,10 @@ jobs:
         # with:
           # creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-
-      # - name: Initialize Terraform
-        # run: terraform init
-
-      - name: Terraform init azurerm backend
-        uses: ahmedig/terraform-azurerm-backend@v4
-        with:
-          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
-          resource_group_name: ${{secrets.BACKEND_AZURE_RESOURCE_GROUP_NAME}}
-          container_name: ${{secrets.BACKEND_AZURE_STORAGE_ACCOUNT_CONTAINER_AKS_AUTO_NAME}}
-          storage_account_name: ${{secrets.BACKEND_AZURE_STORAGE_ACCOUNT_NAME}}
-          
-
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+      - name: Initialize Terraform
+        run: terraform init
 
       - name: terraform plan
         run: terraform plan -var "vm_name=${{ github.event.inputs.vm_name }}"
