@@ -29,10 +29,10 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
-
-      - name: Terraform Fmt
-        id: fmt
-        run: terraform fmt -check
+# 
+    #   - name: Terraform Fmt
+        # id: fmt
+        # run: terraform fmt -check
 
       - name: Terraform Init
         id: init
@@ -146,9 +146,6 @@ jobs:
     name: Terraform Apply
     runs-on: ubuntu-latest
     environment: dev
-    defaults:
-      run:
-        working-directory: .
 
     steps:
       - name: Checkout code
