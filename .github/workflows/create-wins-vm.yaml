@@ -44,12 +44,15 @@ jobs:
       - name: Initialize Terraform
         run: terraform init
 
+      - name: Terraform init azurerm backend
+        uses: ahmedig/terraform-azurerm-backend@v4
+        with:
+          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          resource_group_name: ${{secrets.BACKEND_AZURE_RESOURCE_GROUP_NAME}}
+          container_name: ${{secrets.BACKEND_AZURE_STORAGE_ACCOUNT_CONTAINER_AKS_AUTO_NAME}}
+          storage_account_name: ${{secrets.BACKEND_AZURE_STORAGE_ACCOUNT_NAME}}
+          
 
-        env:
-          ARM_CLIENT_ID: ${{ secrets.env.AZURE_CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.env.AZURE_CLIENT_SECRET }}
-          ARM_TENANT_ID: ${{ secrets.env.AZURE_TENANT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.env.AZURE_SUBSCRIPTION_ID }}
 
       - name: terraform plan
         run: terraform plan -var "vm_name=${{ github.event.inputs.vm_name }}"
