@@ -1,8 +1,8 @@
 variable "vm_name" {
   description = "The name of the resource"
-  type        = string
-  default     = "DC"
-  
+  type        = set(string)
+  default     = ["DC", "koko", "elvis", "comfort"]
+
 }
 
 variable "resource_group_location" {
